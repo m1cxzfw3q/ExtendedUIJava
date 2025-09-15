@@ -1,0 +1,11 @@
+{
+    "name": "extended-ui",
+    "displayName": "[orange[]]extended[gold[]] UI",
+    "author": "原作者wizer\n该版本由[sky[]]114514[white[]]制作",
+    "description": "testing",
+    "version": "1.0",
+    "minGameVersion": "147",
+    "hidden": true,
+    "main": "eui.core",
+    "java": true
+}
