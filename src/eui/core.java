@@ -50,13 +50,11 @@ public class core extends Mod {
                             contentTable.checkPref("eui-DragBlock", false);
                             contentTable.checkPref("eui-DragPathfind", false);
                         }
-                        contentTable.checkPref("eui-autoSendGG", true);
+                        contentTable.checkPref("eui-autoSendGG", false);
                 });
         });
     }
 
     @Override
-    public void loadContent() {
-
-    }
+    public void loadContent() {}
 }
