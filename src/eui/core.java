@@ -8,7 +8,10 @@ import arc.Core;
 import mindustry.Vars;
 
 public class core extends Mod {
-    public core() {
+    public core() {}
+
+    @Override
+    public void loadContent() {
         Events.on(EventType.GameOverEvent.class, e -> {
             if (Core.settings.getBool("eui-autoSendGG", false)) Call.sendChatMessage("gg");
         });
@@ -54,7 +57,4 @@ public class core extends Mod {
                 })
         );
     }
-
-    @Override
-    public void loadContent() {}
 }
