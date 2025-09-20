@@ -1,6 +1,6 @@
 const iconsUtil = require("extended-ui/utils/icons");
 
-let isBuilded = true;
+let isBuilded = false;
 let contentTable;
 let previewTable;
 let setCategoryNameDialog;
