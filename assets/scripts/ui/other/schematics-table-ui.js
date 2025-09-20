@@ -57,7 +57,7 @@ Events.run(Trigger.update, () => {
     schematicButtonSize = Core.settings.getInt("eui-SchematicsTableButtonSize", 30);
     categoryButtonSize = schematicButtonSize + 2;
 
-    if (!contentTable) {
+    if (!contentSTable) {
         setMarker();
     }
 
