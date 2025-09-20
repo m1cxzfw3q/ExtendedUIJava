@@ -54,6 +54,7 @@ public class core extends Mod {
                         contentTable.checkPref("eui-DragPathfind", false);
                     }
                     contentTable.checkPref("eui-autoSendGG", false);
+                    contentTable.checkPref("euu-AlertMarker", true);
                 })
         );
     }
