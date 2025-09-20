@@ -1,29 +1,22 @@
 package eui;
 
+import arc.Core;
 import mindustry.game.EventType;
 import mindustry.gen.Call;
 import mindustry.mod.Mod;
 import arc.Events;
-import arc.Core;
 import mindustry.Vars;
 
 public class core extends Mod {
-    public core() {}
+    public core() {
+        Events.run(EventType.Trigger.class, () -> {
+            if (Vars.state.teams.cores(Vars.player.team()).size == 0 &&
+                    Core.settings.getBool("eui-AlertMarker", true)) Call.sendChatMessage("gg");
+        });
+    }
 
     @Override
     public void loadContent() {
-        Events.on(EventType.GameOverEvent.class, e -> {
-            if (Core.settings.getBool("eui-autoSendGG", false)) Call.sendChatMessage("gg");
-        });
-
-        Events.on(EventType.WinEvent.class, e -> {
-            if (Core.settings.getBool("eui-autoSendGG", false)) Call.sendChatMessage("gg");
-        });
-
-        Events.on(EventType.LoseEvent.class, e -> {
-            if (Core.settings.getBool("eui-autoSendGG", false)) Call.sendChatMessage("gg");
-        });
-
         Events.on(EventType.ClientLoadEvent.class, e ->
                 Vars.ui.settings.addCategory("@eui.name", contentTable -> {
                     contentTable.checkPref("eui-showPowerBar", true);
@@ -54,8 +47,9 @@ public class core extends Mod {
                         contentTable.checkPref("eui-DragPathfind", false);
                     }
                     contentTable.checkPref("eui-autoSendGG", false);
-                    contentTable.checkPref("euu-AlertMarker", true);
+                    contentTable.checkPref("eui-AlertMarker", true);
                 })
         );
+
     }
 }
