@@ -96,7 +96,7 @@ Events.run(Trigger.draw, () => {
             const position = Core.camera.position;
             x = position.x;
             y = position.y;
-        } else if (Version.number < 8 && Vars.player.unit() instanceof NullUnit) {
+        } else if (Version.number < 8 && Vars.player.unit() == null) {
             const position = Core.camera.position;
             x = position.x;
             y = position.y;
