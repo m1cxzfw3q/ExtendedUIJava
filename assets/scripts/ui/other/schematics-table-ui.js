@@ -136,7 +136,6 @@ function setMarker() {
     overlaySMarker.row();
     contentSTable = overlaySMarker.table(Styles.black3).top().right().get();
     contentSTable.visibility = () => isBuilded;
-    contentSTable.show();
 }
 
 function isRebuildNeeded() {
