@@ -1,8 +1,8 @@
 const iconsUtil = require("extended-ui/utils/icons");
 
 let isBuilded = false;
-let contentTable;
-let previewTable;
+let contentSTable;
+let previewSTable;
 let setCategoryNameDialog;
 
 let currentCategory = 0;
@@ -26,8 +26,8 @@ let lastTapTime;
 
 Events.on(ClientLoadEvent, () => {
     Vars.ui.hudGroup.fill(null, t => {
-        previewTable = t.table(Styles.black3).get();
-        previewTable.visibility = () => previewTableVisibility();
+        previewSTable = t.table(Styles.black3).get();
+        previewSTable.visibility = () => previewTableVisibility();
         t.center();
         t.pack();
     });
@@ -132,10 +132,10 @@ function addEditSchematicTable(dialog, name) {
 }
 
 function setMarker() {
-    let overlayMarker = Vars.ui.hudGroup.getChildren().get(3);
-    overlayMarker.row();
-    contentTable = overlayMarker.table(Styles.black3).top().right().get();
-    contentTable.visibility = () => isBuilded;
+    let overlaySMarker = Vars.ui.hudGroup.getChildren().get(3);
+    overlaySMarker.row();
+    contentSTable = overlaySMarker.table(Styles.black3).top().right().get();
+    contentSTable.visibility = () => isBuilded;
 }
 
 function isRebuildNeeded() {
@@ -167,7 +167,7 @@ function rebuildTable() {
 }
 
 function buildTable() {
-    const wrapped = contentTable.table().margin(3).get();
+    const wrapped = contentSTable.table().margin(3).get();
     let imageButton;
 
     const categoryButtonsTable = wrapped.table().get();
@@ -236,22 +236,22 @@ function buildTable() {
 function clearTable() {
     if (!isBuilded) return;
 
-    contentTable.clearChildren();
+    contentSTable.clearChildren();
     isBuilded = false;
 }
 
 function rebuildPreviewTable() {
-    previewTable.clearChildren();
+    previewSTable.clearChildren();
 
     const requirements = hovered.requirements();
     const powerConsumption = hovered.powerConsumption() * 60;
     const powerProduction = hovered.powerProduction() * 60;
     const core = Vars.player.core();
 
-    previewTable.add(new SchematicsDialog.SchematicImage(hovered)).maxSize(800);
-    previewTable.row();
+    previewSTable.add(new SchematicsDialog.SchematicImage(hovered)).maxSize(800);
+    previewSTable.row();
 
-    previewTable.table(null, requirementsTable => {
+    previewSTable.table(null, requirementsTable => {
         let i = 0;
         requirements.each((item, amount) => {
             requirementsTable.image(item.uiIcon).left();
@@ -266,30 +266,30 @@ function rebuildPreviewTable() {
         });
     });
 
-    previewTable.row();
+    previewSTable.row();
     
     if (powerConsumption || powerProduction) {
-        previewTable.table(null, powerTable => {
+        previewSTable.table(null, powerSTable => {
 
             if (powerProduction) {
-                powerTable.image(Icon.powerSmall).color(Pal.powerLight).padRight(3);
-                powerTable.add("+" + Strings.autoFixed(powerProduction, 2)).color(Pal.powerLight).left();
+                powerSTable.image(Icon.powerSmall).color(Pal.powerLight).padRight(3);
+                powerSTable.add("+" + Strings.autoFixed(powerProduction, 2)).color(Pal.powerLight).left();
 
                 if (powerConsumption) {
-                    powerTable.add().width(15);
+                    powerSTable.add().width(15);
                 }
             }
 
             if (powerConsumption) {
-                powerTable.image(Icon.powerSmall).color(Pal.remove).padRight(3);
-                powerTable.add("-" + Strings.autoFixed(powerConsumption, 2)).color(Pal.remove).left();
+                powerSTable.image(Icon.powerSmall).color(Pal.remove).padRight(3);
+                powerSTable.add("-" + Strings.autoFixed(powerConsumption, 2)).color(Pal.remove).left();
             }
         });
     }
 }
 
 function previewTableVisibility() {
-    return Core.settings.getBool("eui-ShowSchematicsPreview", true) && Boolean(contentTable) && contentTable.visible && Boolean(hovered);
+    return Core.settings.getBool("eui-ShowSchematicsPreview", true) && Boolean(contentSTable) && contentSTable.visible && Boolean(hovered);
 }
 
 function getCategoryTooltip(categoryId) {
