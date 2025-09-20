@@ -65,7 +65,7 @@ Events.run(Trigger.update, () => {
         rebuildTable();
     }
 
-    if (hovered && contentTable.hasMouse()) {
+    if (hovered && contentSTable.hasMouse()) {
         rebuildPreviewTable();
     } else {
         hovered = null;
