@@ -11,8 +11,7 @@ public class core extends Mod {
     public boolean isAutoGG = false;
     public core() {
         Events.run(EventType.Trigger.update, () -> {
-            if ((Vars.state.teams.cores(Vars.player.team()).size == 0) &&
-                    Core.settings.getBool("eui-AlertMarker", true) && isAutoGG) {
+            if ((Vars.state.teams.cores(Vars.player.team()).size == 0) && Core.settings.getBool("eui-AlertMarker", true) && isAutoGG) {
                 Call.sendChatMessage("gg");
                 isAutoGG = true;
             }
