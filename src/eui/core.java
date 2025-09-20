@@ -17,9 +17,7 @@ public class core extends Mod {
                 isAutoGG = true;
             }
         });
-        Events.on(EventType.WorldLoadEvent.class, e -> {
-            isAutoGG = false;
-        });
+        Events.on(EventType.WorldLoadEvent.class, e -> isAutoGG = false);
     }
 
     @Override
