@@ -132,8 +132,9 @@ function addEditSchematicTable(dialog, name) {
 }
 
 function setMarker() {
-    // 直接创建一个新的表格添加到hudGroup中，而不是尝试查找现有元素
-    contentSTable = Vars.ui.hudGroup.table(Styles.black3).top().right().get();
+    let overlayMarker = Vars.ui.budGroup.getChildren().get(3);
+    overlayMarker.row();
+    contentSTable = overlayMarker.table(Styles.black3).top().right().get();
     contentSTable.visibility = () => isBuilded;
 }
 
