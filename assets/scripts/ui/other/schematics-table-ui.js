@@ -27,6 +27,7 @@ let lastTapTime;
 Events.on(ClientLoadEvent, () => {
     Vars.ui.hudGroup.fill(null, t => {
         previewSTable = t.table(Styles.black3).get();
+        previewSTable.name = "schematics-preview-table"; // 添加名称标识
         previewSTable.visibility = () => previewTableVisibility();
         t.center();
         t.pack();
@@ -88,7 +89,7 @@ function showEditSchematicButtonDialog(currentCategory, column, row) {
 function showEditImageDialog(name) {
     const size = Vars.mobile ? 320 : 640
     const editImageDialog = new BaseDialog(Core.bundle.get("schematics-table.dialog.change-image.title"));
-    editImageDialog.addCloseButton();   
+    editImageDialog.addCloseButton();
 
     addEditImageTable(editImageDialog, name, size);
 
@@ -107,11 +108,11 @@ function addEditImageTable(dialog, name, size) {
                     let imageButton = table.button(image[1], Styles.cleari, () => {
                         Vars.ui.announce(Core.bundle.get("schematics-table.dialog.change-image.setted-announce-text") + " " + setted_name);
                         Core.settings.put(name, setted_name);
-                        
+
                         rebuildTable();
                     }).size(48).pad(4).get();
                     imageButton.resizeImage(48*0.8);
-            
+
                     if (++r % 8 == 0) table.row();
                 }
             }).top();
@@ -132,10 +133,34 @@ function addEditSchematicTable(dialog, name) {
 }
 
 function setMarker() {
-    let overlaySMarker = Vars.ui.hudGroup.getChildren().get(3);
-    overlaySMarker.row();
-    contentSTable = overlaySMarker.table(Styles.black3).top().right().get();
-    contentSTable.visibility = () => isBuilded;
+    // 通过名称查找元素而不是使用索引
+    let found = false;
+    Vars.ui.hudGroup.getChildren().each(elem => {
+        if (elem.name === "schematics-preview-table") {
+            found = true;
+            elem.row();
+            contentSTable = elem.table(Styles.black3).top().right().get();
+            contentSTable.visibility = () => isBuilded;
+        }
+    });
+
+    // 如果没有找到，使用备用方案
+    if (!found) {
+        // 尝试查找其他可能的UI容器
+        let overlayContainer = Vars.ui.hudGroup.find(elem =>
+            elem.name && elem.name.contains("overlay") ||
+            elem.toString().contains("Overlay")
+        );
+
+        if (overlayContainer) {
+            overlayContainer.row();
+            contentSTable = overlayContainer.table(Styles.black3).top().right().get();
+        } else {
+            // 最后备选方案：直接添加到hudGroup
+            contentSTable = Vars.ui.hudGroup.table(Styles.black3).top().right().get();
+        }
+        contentSTable.visibility = () => isBuilded;
+    }
 }
 
 function isRebuildNeeded() {
@@ -267,7 +292,7 @@ function rebuildPreviewTable() {
     });
 
     previewSTable.row();
-    
+
     if (powerConsumption || powerProduction) {
         previewSTable.table(null, powerSTable => {
 
