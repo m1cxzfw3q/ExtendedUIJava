@@ -27,7 +27,6 @@ let lastTapTime;
 Events.on(ClientLoadEvent, () => {
     Vars.ui.hudGroup.fill(null, t => {
         previewSTable = t.table(Styles.black3).get();
-        previewSTable.name = "schematics-preview-table"; // 添加名称标识
         previewSTable.visibility = () => previewTableVisibility();
         t.center();
         t.pack();
@@ -133,34 +132,9 @@ function addEditSchematicTable(dialog, name) {
 }
 
 function setMarker() {
-    // 通过名称查找元素而不是使用索引
-    let found = false;
-    Vars.ui.hudGroup.getChildren().each(elem => {
-        if (elem.name === "schematics-preview-table") {
-            found = true;
-            elem.row();
-            contentSTable = elem.table(Styles.black3).top().right().get();
-            contentSTable.visibility = () => isBuilded;
-        }
-    });
-
-    // 如果没有找到，使用备用方案
-    if (!found) {
-        // 尝试查找其他可能的UI容器
-        let overlayContainer = Vars.ui.hudGroup.find(elem =>
-            elem.name && elem.name.contains("overlay") ||
-            elem.toString().contains("Overlay")
-        );
-
-        if (overlayContainer) {
-            overlayContainer.row();
-            contentSTable = overlayContainer.table(Styles.black3).top().right().get();
-        } else {
-            // 最后备选方案：直接添加到hudGroup
-            contentSTable = Vars.ui.hudGroup.table(Styles.black3).top().right().get();
-        }
-        contentSTable.visibility = () => isBuilded;
-    }
+    // 直接创建一个新的表格添加到hudGroup中，而不是尝试查找现有元素
+    contentSTable = Vars.ui.hudGroup.table(Styles.black3).top().right().get();
+    contentSTable.visibility = () => isBuilded;
 }
 
 function isRebuildNeeded() {
