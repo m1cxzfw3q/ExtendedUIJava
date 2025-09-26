@@ -20,7 +20,7 @@ public class core extends Mod {
         Events.on(EventType.WorldLoadEvent.class, e -> isAutoGG = false);
 
         Events.on(EventType.ClientLoadEvent.class, e ->
-                Vars.ui.settings.addCategory("@eui.name", contentTable -> {
+                Vars.ui.settings.addCategory("@eui.settings", contentTable -> {
                     contentTable.checkPref("eui-showPowerBar", true);
                     contentTable.checkPref("eui-showFactoryProgress", true);
                     contentTable.checkPref("eui-showUnitBar", true);
