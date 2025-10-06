@@ -17,6 +17,13 @@ public class core extends Mod {
             }
         });
 
+        Events.on(EventType.GameOverEvent.class, e -> {
+            if (Core.settings.getBool("eui-autoSendGG", true) && isAutoGG) {
+                Call.sendChatMessage("gg");
+                isAutoGG = true;
+            }
+        });
+
         Events.on(EventType.WorldLoadEvent.class, e -> isAutoGG = false);
 
         Events.on(EventType.ClientLoadEvent.class, e ->
