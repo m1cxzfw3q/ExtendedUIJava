@@ -57,6 +57,7 @@ public class core extends Mod {
                     }
                     contentTable.checkPref("eui-autoSendGG", false);
                     contentTable.checkPref("eui-AlertMarker", true);
+                    contentTable.checkPref("eui-AlertMarkerOutputMessage", true);
                 })
         );
     }

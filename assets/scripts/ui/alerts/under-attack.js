@@ -55,7 +55,9 @@ let event = (event) => {
         if (currentAttackValue > value) {
             output.ingameAlert(Core.bundle.get("alerts." + name + "-attack"), drawTasks.divergingCircles(x, y, {color: Color.red}));
             if (Core.settings.getBool("eui-AlertMarker", true)) {
-                Call.sendChatMessage(Strings.format(Core.bundle.get("alerts.mdtx.defend-build"), mathX, mathY));
+                if (Core.settings.getBool("eui-AlertMarkerOutputMessage", true)) {
+                    Call.sendChatMessage(Strings.format(Core.bundle.get("alerts.mdtx.defend-build"), mathX, mathY));
+                } else NetClient.sendMessage(Strings.format(Core.bundle.get("alerts.defend-build"), mathX, mathY))
             }
             lastSendTime = Time.time;
             return;
