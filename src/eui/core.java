@@ -25,11 +25,6 @@ public class core extends Mod {
             }
         });
 
-        Events.on(EventType.ConnectionEvent.class, e -> {
-            if (Core.settings.getBool("eui-DisplayPlayerUUIDAndUSID", true))
-                NetClient.sendMessage("UUID：" + e.connection.uuid + "  USID：" + e.connection.usid);
-        });
-
         Events.on(EventType.WorldLoadEvent.class, e -> isAutoGG = false);
 
         Events.on(EventType.ClientLoadEvent.class, e ->
@@ -64,7 +59,6 @@ public class core extends Mod {
                     contentTable.checkPref("eui-autoSendGG", false);
                     contentTable.checkPref("eui-AlertMarker", true);
                     contentTable.checkPref("eui-AlertMarkerOutputMessage", true);
-                    contentTable.checkPref("eui-DisplayPlayerUUIDAndUSID", false);
                 })
         );
     }
