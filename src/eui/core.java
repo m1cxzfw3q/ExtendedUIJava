@@ -1,7 +1,6 @@
 package eui;
 
 import arc.Core;
-import mindustry.core.NetClient;
 import mindustry.game.EventType;
 import mindustry.gen.Call;
 import mindustry.mod.Mod;
